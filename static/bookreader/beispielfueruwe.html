@@ -1,0 +1,108 @@
+<html>
+<head>
+    <title>bookreader example</title>
+
+    <link rel="stylesheet" type="text/css" href="BookReader.css"/>
+    <script type="text/javascript" src="http://www.archive.org/includes/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="jquery-ui-1.8.5.custom.min.js"></script>
+
+    <script type="text/javascript" src="dragscrollable.js"></script>
+    <script type="text/javascript" src="jquery.colorbox-min.js"></script>
+    <script type="text/javascript" src="jquery.ui.ipad.js"></script>
+    <script type="text/javascript" src="jquery.bt.min.js"></script>
+    <script type="text/javascript" src="BookReader.js"></script>
+</head>
+<body>
+    <div id="BookReader"/>
+
+     <script type="text/javascript">
+				br = new BookReader();
+				 
+				// Specify the number of pages the book has
+				br.numLeafs = 15;
+				 
+				// Book title and the URL used for the book title link
+				br.bookTitle= 'Ein anderes buch Example';
+				br.bookUrl =  'https://openlibrary.org/books/OL20586114M';
+				 
+				// Specify the path where images for the UI are located
+				br.imagesBaseURL = 'bookreader/images/';
+				 
+				br.getPageURI = function(index, reduce, rotate) {
+					// Construct a string that holds the URL to the page with `index`.
+					var leafStr = '000';
+					var imgStr = (index+1).toString();
+					var re = new RegExp("0{"+imgStr.length+"}$");
+					var url = 'http://www.archive.org/download/BookReader/img/page'
+						+ leafStr.replace(re, imgStr) + '.jpg';
+					return url;
+				}
+				 
+				br.getPageWidth = function(index) {
+					return 800;
+				}
+				br.getPageHeight = function(index) {
+					return 1200;
+				}
+				 
+				// Return which side, left or right, that a given page should be displayed on
+				br.getPageSide = function(index) {
+					if (0 == (index & 0x1)) {
+						return 'R';
+					} else {
+						return 'L';
+				}
+			}
+ 
+			// This function returns the left and right indices for the user-visible
+			// spread that contains the given index. The return values may be
+			// null if there is no facing page or the index is invalid.
+			br.getSpreadIndices = function(pindex) {
+				var spreadIndices = [null, null];
+				if ('rl' == this.pageProgression) {
+				// Right to Left
+					if (this.getPageSide(pindex) == 'R') {
+						spreadIndices[1] = pindex;
+						spreadIndices[0] = pindex + 1;
+					} else {
+						// Given index was LHS
+						spreadIndices[0] = pindex;
+						spreadIndices[1] = pindex - 1;
+					}
+			} else {
+				// Left to right
+				if (this.getPageSide(pindex) == 'L') {
+					spreadIndices[0] = pindex;
+					spreadIndices[1] = pindex + 1;
+					} else {
+					// Given index was RHS
+					spreadIndices[1] = pindex;
+					spreadIndices[0] = pindex - 1;
+					}
+				}
+				return spreadIndices;
+			}
+ 
+			// For a given "accessible page index" return the page number in the book.
+			// For example, index 5 might correspond to "Page 1" if there is front matter
+			// such as a title page and table of contents.
+			br.getPageNum = function(index) {
+			return index+1;
+			}
+			 
+			br.getEmbedCode = function(frameWidth, frameHeight, params) {
+			// We don't need to provide an embedded code in our minimal example.
+			return;
+			}
+			 
+			// Start the reader
+			br.init();
+ 
+				// read-aloud and search need backend compenents and are not supported in
+				// this example.
+				$('#BRtoolbar').find('.read').hide();
+				$('#textSrch').hide();
+				$('#btnSrch').hide();
+</script>
+    </body>
+</html>

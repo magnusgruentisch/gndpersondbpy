@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+
+<html>
+ <head>
+
+    <title>{{ title }}</title>
+
+		<link rel="stylesheet" type="text/css" media="screen" href="{{ url_for('static', filename='stylesheets/bootstrap.min.css') }}">
+        <link rel="stylesheet" type="text/css" media="screen" href="{{ url_for('static', filename='stylesheets/main.css') }}">
+        <script src="{{ url_for('static', filename='javascripts/my-seealso.js') }}" type="text/javascript"></script>
+		<script src="{{ url_for('static', filename='javascripts/jquery-1.11.0.js') }}" type="text/javascript"></script>
+
+  </head>
+
+  <body>
+
+  			<form id="openForm" action="/iFrameUpdate" name="openForm" >
+				<table class="erfassung table">
+					<tr>
+						<td><b>Personenerfassung</b></td><td>URL:</td>
+						<td><input type="text"  name="url" value="https://archive.org/stream/aeltereuniversi01friegoog" size="80"></td>
+						<td><input type="submit" name="oeffnen" value="öffnen" ></td>
+					</tr>
+
+				</table>
+			</form>
+
+
+
+<form action="/saveArchiveEntry" method="GET" >
+
+				<table class="table">
+						<tr>
+							<th>GND</th>
+							<th>Nachname</th>
+							<th>Vorname</th>
+							<th>Page</th>
+							<th>Kommentar</th>
+							<th>&nbsp;</th>
+						</tr>
+						<tr>
+							<td><input type="text" placeholder="GND" name="gnd"></td>
+							<td><input type="text" placeholder="Nachname" name="nachname"></td>
+							<td><input type="text" placeholder="Vorname" name="vorname"></td>
+							<td><input type="text" placeholder="Page" name="page"></td>
+							<td><input type="text" placeholder="Kommentar" name="comment"></td>
+							<td><input type="hidden" value="https://archive.org/stream/aeltereuniversi01friegoog" name="url"></td>
+							<td><input type="hidden" value="false" name="ok"></td>
+							<td><input type="submit" name="speichern" value="speichern"></td>
+						</tr>
+					<tr>
+							<td colspan=7><font color="red">
+
+
+							</font>
+							</td>
+						</tr>
+
+					</table>
+
+
+</form>
+
+
+
+ <iframe id="openArchiveFrame" src="https://archive.org/stream/aeltereuniversi01friegoog"  width="800px" height="600px"></iframe>
+
+	</body>
+</html>
