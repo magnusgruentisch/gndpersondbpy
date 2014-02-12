@@ -1,12 +1,13 @@
 import sqlite3
 import os
+from archive_entry import archive_entry
 from flask import Flask, render_template, request, g
 app = Flask(__name__)
 app.config.from_object(__name__)
 
 # Load default config and override config from an environment variable
 app.config.update(dict(
-    DATABASE=os.path.join(app.root_path, 'archive_entry.db'),
+    DATABASE=os.path.join(app.root_path, '/db/archive_entry.db'),
     DEBUG=True,
     SECRET_KEY='development key',
     USERNAME='admin',
@@ -30,8 +31,34 @@ def saveArchiveEntry():
     page = request.form['page']
     comment = request.form['comment']
     ok = request.form['ok']
+    entry = archive_entry(gnd, vorname, nachname, url, page, comment, ok)
 
     return "heyhey " +gnd
+
+
+
+## DB
+
+def save_archive_entry(archive_entry):
+    db = get_db()
+
+    db.execute("insert into archiveentry values (?,?,?,?,?,?,?)",
+               [archive_entry.gnd,
+                archive_entry.vorname,
+                archive_entry.nachname,
+                archive_entry.url,
+                archive_entry.page,
+                archive_entry.comment,
+                archive_entry.ok])
+    db.commit()
+
+@app.route('/showAll')
+def show_entries():
+    db = get_db()
+    cur = db.execute('select * from entries order by id desc')
+    entries = cur.fetchall()
+    return render_template('show_entries.html', entries=entries)
+
 
 
 
