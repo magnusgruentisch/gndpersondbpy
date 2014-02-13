@@ -73,6 +73,7 @@ def show_entries():
 ## DB
 
 def save_archive_entry(gnd, vorname, nachname, url, page, comment, ok):
+    """Schreibt einen Datensatz weg"""
     db = get_db()
 
     db.execute("insert into archiveentry values (?,?,?,?,?,?,?)",
@@ -89,6 +90,7 @@ def save_archive_entry(gnd, vorname, nachname, url, page, comment, ok):
 
 
 def update_archive_entry(gnd, vorname, nachname, url, page, comment, ok, gnd_new):
+    """Update eines Datensatzes"""
     db = get_db()
     print("Update:",gnd, vorname, nachname, url, page, comment, ok, gnd_new)
     db.execute("update archiveentry set gnd=?, vorname=?, nachname=?, url=?, page=?, comment=?, ok=? where gnd=?",
@@ -103,6 +105,7 @@ def update_archive_entry(gnd, vorname, nachname, url, page, comment, ok, gnd_new
     db.commit()
 
 def get_all():
+    """Holt alle Datensaetze"""
     db = get_db()
     cur = db.execute('select * from archiveentry order by gnd asc')
     entries = cur.fetchall()
