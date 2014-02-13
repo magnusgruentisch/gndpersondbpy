@@ -7,7 +7,7 @@ app.config.from_object(__name__)
 
 # Load default config and override config from an environment variable
 app.config.update(dict(
-    DATABASE=os.path.join(app.root_path, '/db/archive_entry.db'),
+    DATABASE=os.path.join(app.root_path, 'db/archive_entry.db'),
     DEBUG=True,
     SECRET_KEY='development key',
     USERNAME='admin',
@@ -32,6 +32,7 @@ def saveArchiveEntry():
     comment = request.form['comment']
     ok = request.form['ok']
     entry = archive_entry(gnd, vorname, nachname, url, page, comment, ok)
+    save_archive_entry(entry)
 
     return "heyhey " +gnd
 
