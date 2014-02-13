@@ -1,7 +1,8 @@
 import sqlite3
 import os
-from archive_entry import archive_entry
-from flask import Flask, render_template, request, g
+#from archive_entry import archive_entry
+from entry_form import ArchiveEntryForm
+from flask import Flask, render_template, request, g, redirect,url_for
 app = Flask(__name__)
 app.config.from_object(__name__)
 
@@ -31,35 +32,81 @@ def saveArchiveEntry():
     page = request.form['page']
     comment = request.form['comment']
     ok = request.form['ok']
-    entry = archive_entry(gnd, vorname, nachname, url, page, comment, ok)
-    save_archive_entry(entry)
 
-    return "heyhey " +gnd
+    save_archive_entry(gnd, vorname, nachname, url, page, comment, ok)
+
+    form = ArchiveEntryForm()
+    form.gnd = gnd
+    form.nachname = nachname
+    form.vorname = vorname
+    form.url = url
+    form.page = page
+    form.comment = comment
+    form.ok = ok
+
+    return render_template('confirm.html', form=form)
+
+
+@app.route('/confirmArchiveEntry', methods=['POST'])
+def confirmArchiveEntry():
+    form = ArchiveEntryForm()
+    update_archive_entry(form.gnd.data,
+                         form.vorname.data,
+                         form.nachname.data,
+                         form.url.data,
+                         form.page.data,
+                         form.comment.data,
+                         form.ok.data,
+                         form.gnd.data)
+
+    entries = get_all()
+    return render_template('show_entries.html', entries=entries)
+
+
+@app.route('/showAll')
+def show_entries():
+    entries = get_all()
+    return render_template('show_entries.html', entries=entries)
 
 
 
 ## DB
 
-def save_archive_entry(archive_entry):
+def save_archive_entry(gnd, vorname, nachname, url, page, comment, ok):
     db = get_db()
 
     db.execute("insert into archiveentry values (?,?,?,?,?,?,?)",
-               [archive_entry.gnd,
-                archive_entry.vorname,
-                archive_entry.nachname,
-                archive_entry.url,
-                archive_entry.page,
-                archive_entry.comment,
-                archive_entry.ok])
+               [gnd,
+                vorname,
+                nachname,
+                url,
+                page,
+                comment,
+                ok])
     db.commit()
 
-@app.route('/showAll')
-def show_entries():
-    db = get_db()
-    cur = db.execute('select * from entries order by id desc')
-    entries = cur.fetchall()
-    return render_template('show_entries.html', entries=entries)
 
+
+
+def update_archive_entry(gnd, vorname, nachname, url, page, comment, ok, gnd_new):
+    db = get_db()
+    print("Update:",gnd, vorname, nachname, url, page, comment, ok, gnd_new)
+    db.execute("update archiveentry set gnd=?, vorname=?, nachname=?, url=?, page=?, comment=?, ok=? where gnd=?",
+               [gnd,
+                vorname,
+                nachname,
+                url,
+                page,
+                comment,
+                ok,
+                gnd_new])
+    db.commit()
+
+def get_all():
+    db = get_db()
+    cur = db.execute('select * from archiveentry order by gnd asc')
+    entries = cur.fetchall()
+    return entries
 
 
 

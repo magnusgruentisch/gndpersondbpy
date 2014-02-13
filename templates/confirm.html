@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% block body %}
+
+
+    <form action="/confirmArchiveEntry" method="POST">
+		 <fieldset>
+            <table>
+             <tr>
+                 <td>GND:</td>
+                 <td><input type="text" value="{{ form.gnd }}" name="gnd" /></td>
+             </tr>
+             <tr>
+                 <td>Vorname</td>
+                 <td><input type="text" value="{{ form.vorname }}" name="vorname" /></td>
+             </tr>
+             <tr>
+                 <td>Nachname</td>
+                 <td><input type="text" value="{{ form.nachname }}" name="nachname" /></td>
+             </tr>
+             <tr>
+                 <td>URL:</td>
+                 <td><input type="text" value="{{ form.url }}" name="url" /></td>
+             </tr>
+
+             <tr>
+                 <td>Page</td>
+                 <td><input type="text" value="{{ form.page }}" name="page" /></td>
+             </tr>
+             <tr>
+                 <td>Kommentar</td>
+                 <td><input type="text" value="{{ form.comment }}" name="comment" /></td>
+             </tr>
+             <tr>
+                 <td>OK</td>
+                 <td><input type="checkbox" value="{{ form.ok }}" name="ok"/></td>
+             </tr>
+
+            </table>
+
+
+            <div class="actions">
+                <input type="submit" value="Diesen Eintrag bestätigen" class="btn primary"> or
+                <a href="/showAll" class="btn">Abbrechen</a>
+            </div>
+
+         </fieldset>
+    </form>
+
+{% endblock %}

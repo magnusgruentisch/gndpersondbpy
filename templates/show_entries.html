@@ -1,14 +1,30 @@
-<html>
+{% extends "layout.html" %}
+{% block body %}
+
+  <table class="table table-striped">
+   		<thead>
+   		<tr>
+   			<th>GND</th><th>Nachname, Vorname</th><th>URL</th><th>Page</th><th>OK</th>
+   		</tr>
+   		</thead>
+   		<tbody>
+   		 {% for entry in entries %}
+   		 	 	<tr>
+   		 	 		<td>{{ entry.gnd }}</td>
+                    <td>{{ entry.nachname }}, {{ entry.vorname }}</td>
+                    <td>{{ entry.url }}</td>
+                    <td>{{ entry.page }}</td>
+                    <td>{{ entry.comment }}</td>
+                    <td>{{ entry.ok }}</td>
+   		 	 	</tr>
+   		 {% else %}
+                <tr>
+                    <td colspan="6">Keine Daten</td>
+                </tr>
+
+         {% endfor %}
+   		</tbody>
+   </table>
 
 
-<body>
-<ol>
-{% for entry in entries %}
-    <li><h2>{{ entry.title }}</h2>{{ entry.text|safe }}
-  {% else %}
-    <li><em>Unbelievable. No entries here so far</em>
-  {% endfor %}
-</ol>
-
-</body>
- </html>
+{% endblock %}
