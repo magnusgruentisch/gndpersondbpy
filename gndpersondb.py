@@ -1,5 +1,6 @@
 import sqlite3
 import os
+import datetime
 #from archive_entry import archive_entry
 from entry_form import ArchiveEntryForm
 from flask import Flask, render_template, request, g, redirect,url_for
@@ -68,7 +69,10 @@ def show_entries():
     entries = get_all()
     return render_template('show_entries.html', entries=entries)
 
-
+@app.route('/exportAll')
+def export_all():
+    entries = get_all()
+    return render_template('export.csv', entries=entries)
 
 ## DB
 

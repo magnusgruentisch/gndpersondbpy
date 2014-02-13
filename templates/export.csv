@@ -1,0 +1,3 @@
+GND;Nachname;Vorname;URL;Page;Comment;OK
+{% for entry in entries %}{{ entry.gnd }};{{ entry.nachname }};{{ entry.vorname }};{{ entry.url }};{{ entry.page }};{{ entry.comment }};{{ entry.ok }}
+{% endfor %}
