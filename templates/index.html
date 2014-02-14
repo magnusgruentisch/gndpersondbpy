@@ -1,19 +1,7 @@
-<!DOCTYPE html>
+{% extends "layout.html" %}
+{% block body %}
 
 
-<html>
- <head>
-
-    <title>{{ title }}</title>
-
-		<link rel="stylesheet" type="text/css" media="screen" href="{{ url_for('static', filename='stylesheets/bootstrap.min.css') }}">
-        <link rel="stylesheet" type="text/css" media="screen" href="{{ url_for('static', filename='stylesheets/main.css') }}">
-        <script src="{{ url_for('static', filename='javascripts/my-seealso.js') }}" type="text/javascript"></script>
-		<script src="{{ url_for('static', filename='javascripts/jquery-1.11.0.js') }}" type="text/javascript"></script>
-
-  </head>
-
-  <body>
 
   			<form id="openForm" action="/iFrameUpdate" name="openForm" >
 				<table class="erfassung table">
@@ -66,5 +54,4 @@
 
  <iframe id="openArchiveFrame" src="https://archive.org/stream/aeltereuniversi01friegoog"  width="800px" height="600px"></iframe>
 
-	</body>
-</html>
+{% endblock %}
