@@ -22,12 +22,12 @@ Diese kleine Anwendung beruht auf Flask. http://flask.pocoo.org/.
 
 4.2. cd db 
 
-4.3. sqlite3 archiveentry.db < ../schema.sql
+4.3. sqlite3 archive_entry.db < ../schema.sql
 
 oder 
 
 4.1. mkdir db
 
-4.2. sqlite3 db/archiveentry.db
+4.2. sqlite3 db/archive_entry.db
 
 4.3. Einfuegen von Inhalt von schema.sql
