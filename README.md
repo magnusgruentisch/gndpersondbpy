@@ -17,3 +17,9 @@ Diese kleine Anwendung beruht auf Flask. http://flask.pocoo.org/.
 2. git clone git://github.com/lepture/flask-wtf.git
 
 3. sudo pip install rdflib
+
+4.1. mkdir db
+
+4.2. cd db 
+
+4.3. sqlite3 archiveentry.db < ../schema.sql
