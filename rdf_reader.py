@@ -20,4 +20,10 @@ for stmt in g.subject_objects(URIRef("http://d-nb.info/standards/elementset/gnd#
     print str(stmt[1])
 
 s = g.serialize(format='n3')
+print "Hier"
+for entry in list(g[rdflib.URIRef('http://d-nb.info/gnd/118707507')]):
+    print str(entry)
 
+print "Hier2"
+for entry in list(g[rdflib.URIRef('http://d-nb.info/standards/elementset/gnd#preferredNameForThePerson')]):
+    print str(entry)
