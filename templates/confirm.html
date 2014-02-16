@@ -32,7 +32,7 @@
              </tr>
              <tr>
                  <td>OK</td>
-                 <td><input type="checkbox" value="{{ form.ok }}" name="ok"/></td>
+                 <td><input type="checkbox" value="{{ form.ok }}" name="ok" {% if form.ok.data %} checked {% endif %} /></td>
              </tr>
 
             </table>
