@@ -44,13 +44,20 @@
     <p>Experiment zu http://staging.api.lobid.org/person?id=118580604&format=full</p>
 
     <div id="placeholder"></div>
+    <div id="alltable"></div>
+
 
     <script>
 
 
 
         $.getJSON( "/gnd/118580604", function( data ) {
-            var items = [];
+
+
+            for(var k in data[0]["@graph"][0]) {
+               document.getElementById("alltable").innerHTML += k + ": " + data[0]["@graph"][0][k] + "</br>\n"
+            }
+
             document.getElementById("placeholder").innerHTML="biographicalOrHistoricalInformation: " + data[0]["@graph"][0].biographicalOrHistoricalInformation["@value"] + "<br/>"
                                                            + "id: "          + data[0]["@graph"][0]["@id"] + "<br/>"
                                                            + "dateOfBirth: "  +data[0]["@graph"][0].dateOfBirth + "<br/>"
