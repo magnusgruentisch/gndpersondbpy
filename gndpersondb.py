@@ -69,6 +69,13 @@ def show_entries():
     entries = get_all()
     return render_template('show_entries.html', entries=entries)
 
+@app.route('/showOne/<gnd>')
+def show_entry(gnd):
+    entry = get_one(gnd)
+    print entry
+    return render_template('show_entry.html', entry=entry[0])
+
+
 @app.route('/exportAll')
 def export_all():
     entries = get_all()
@@ -115,6 +122,13 @@ def get_all():
     entries = cur.fetchall()
     return entries
 
+
+def get_one(gnd):
+    """Holt einen Datensatz fuer eine gnd"""
+    db = get_db()
+    cur = db.execute("select * from archiveentry where gnd=?", [gnd])
+    entries = cur.fetchall()
+    return entries
 
 
 def connect_db():

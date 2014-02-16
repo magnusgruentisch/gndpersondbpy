@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+{% block body %}
+
+
+<h2>Zeigt einen Datensatz an:</h2>
+
+    <table>
+        <tr>
+            <th>GND</th>
+            <td>{{ entry.gnd }}</td>
+        </tr>
+        <tr>
+            <th>Nachname</th>
+            <td>{{ entry.nachname }}</td>
+        </tr>
+
+        <tr>
+            <th>Vorname</th>
+            <td>{{ entry.vorname }}</td>
+        </tr>
+
+        <tr>
+            <th>URL</th>
+            <td>{{ entry.url }}</td>
+        </tr>
+
+        <tr>
+            <th>Seite</th>
+            <td>{{ entry.page }}</td>
+        </tr>
+
+        <tr>
+            <th>Kommentar</th>
+            <td>{{ entry.comment }}</td>
+        </tr>
+        <tr>
+            <th>Ok</th>
+            <td>{{ entry.ok }}</td>
+        </tr>
+
+    </table>
+
+{% endblock %}
