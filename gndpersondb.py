@@ -1,9 +1,10 @@
 import sqlite3
 import os
+import requests
 import datetime
 #from archive_entry import archive_entry
 from entry_form import ArchiveEntryForm
-from flask import Flask, render_template, request, g, redirect,url_for
+from flask import Flask, render_template, Request, g, redirect,url_for, stream_with_context, Response
 app = Flask(__name__)
 app.config.from_object(__name__)
 
@@ -80,6 +81,27 @@ def show_entry(gnd):
 def export_all():
     entries = get_all()
     return render_template('export.csv', entries=entries)
+
+
+# staging.api.lobid.org/person?id=118580604&format=full
+# payload = {'key1': 'value1', 'key2': 'value2'}
+# r = requests.get("http://httpbin.org/get", params=payload)
+@app.route('/gnd/<gnd>')
+def gnd(gnd):
+    print "[", gnd, "]"
+    payload = {'id': gnd, 'format': 'full'}
+    req = requests.get("http://staging.api.lobid.org/person", params=payload,  stream = True)
+    return Response(stream_with_context(req.iter_content()), content_type = req.headers['content-type'])
+
+@app.route('/getJson')
+def get_json():
+    return """
+    {
+"one": "Singular sensation",
+"two": "Beady little eyes",
+"three": "Little birds pitch by my doorstep"
+}
+"""
 
 ## DB
 

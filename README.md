@@ -31,3 +31,5 @@ oder
 4.2. sqlite3 db/archive_entry.db
 
 4.3. Einfuegen von Inhalt von schema.sql
+
+5. pip install requests

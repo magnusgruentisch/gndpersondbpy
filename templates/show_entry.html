@@ -40,4 +40,26 @@
 
     </table>
 
+
+    <p>Experiment zu http://staging.api.lobid.org/person?id=118580604&format=full</p>
+
+    <script>
+
+
+
+        $.getJSON( "/gnd/118580604", function( data ) {
+            var items = [];
+            $.each( data, function( key, val ) {
+                items.push( "<li id='" + key + "'>" + val + "</li>" );
+            });
+            $( "<ul/>", {
+                "class": "my-new-list",
+                html: items.join( "" )
+                }).appendTo( "body" );
+        });
+
+
+    </script>
+
+
 {% endblock %}
