@@ -4,7 +4,7 @@ import requests
 import datetime
 #from archive_entry import archive_entry
 from entry_form import ArchiveEntryForm
-from flask import Flask, render_template, Request, g, redirect,url_for, stream_with_context, Response
+from flask import Flask, render_template, request, g, redirect,url_for, stream_with_context, Response
 app = Flask(__name__)
 app.config.from_object(__name__)
 
